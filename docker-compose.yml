@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+
+  aptinpn:
+    image: gbiffrance/apt:1.0
+    container_name: aptinpn
+    restart: always
+    environment:
+      - APT_PUBLIC_URL=https://apt-uat.gbif.fr
+      - GBIF_REGISTRY_URL=https://api.gbif-uat.org
+      - PUBLISHER_KEY=xxxxx-xxxxx-xxxxxx-xxxxxx
+      - INSTALLATION_KEY=xxxxx-xxxxx-xxxxxx-xxxxxx
+      - GBIF_REGISTRY_LOGIN=connexion@gbif.fr
+      - PUBLICATION_LICENSE=http://creativecommons.org/licenses/by/4.0/legalcode
+      - PUBLICATION_LANGUAGE=eng
+    ports:
+      - 8080:8080
+    env_file:
+      - apt.env
+    volumes:
+      - data_apt:/usr/data
+
+volumes:
+  data_apt:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /workspace/apt/data
